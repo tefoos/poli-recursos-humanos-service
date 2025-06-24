@@ -1,0 +1,59 @@
+# Logs
+logs/
+*.log
+
+# Backup files
+backup/
+*.sql.backup
+*.dump
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker/
+
+# Go binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binaries
+*.test
+
+# Coverage output
+*.out
+
+# Go workspace file
+go.work
+
+# Build output
+/bin/
+/pkg/
+/dist/
+
+# Go module cache
+/go/pkg/mod/
+
+# Air live reload
+tmp/
+
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3

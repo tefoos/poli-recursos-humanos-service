@@ -1,0 +1,4 @@
+CREATE TABLE paises (
+    pais_ID SERIAL PRIMARY KEY,
+    pais_nombre VARCHAR(100) NOT NULL UNIQUE
+);

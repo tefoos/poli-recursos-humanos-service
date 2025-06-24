@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: db_recursos_humanos
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts:/docker-entrypoint-initdb.d
+    networks:
+      - db-network
+
+  adminer:
+    image: adminer:4.8.1
+    container_name: mi-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - db-network
+    depends_on:
+      - postgres
+
+  hr-server:
+    build: .
+    container_name: hr-socket-server
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: admin
+      DB_PASSWORD: admin123
+      DB_NAME: db_recursos_humanos
+      SERVER_PORT: 8888
+    networks:
+      - db-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+
+networks:
+  db-network:
+    driver: bridge
