@@ -102,10 +102,6 @@ func (s *Server) processRequest(req shared.Request) shared.Response {
 		return s.handleDelete(req.Data)
 	case "LIST_CARGOS":
 		return s.handleListCargos()
-	case "LIST_CARGOS_CON_DATOS":
-		return s.handleListCargosConDatos()
-	case "LIST_DEPARTAMENTOS":
-		return s.handleListDepartamentos()
 	case "LIST_DEPARTAMENTOS_CON_DATOS":
 		return s.handleListDepartamentosConDatos()
 	case "LIST_GERENTES":
@@ -248,36 +244,6 @@ func (s *Server) handleListCargos() shared.Response {
 		Success: true,
 		Message: "Lista de cargos obtenida",
 		Data:    cargos,
-	}
-}
-
-func (s *Server) handleListCargosConDatos() shared.Response {
-	cargos, err := s.crud.ListCargosConDatos()
-	if err != nil {
-		return shared.Response{
-			Success: false,
-			Message: err.Error(),
-		}
-	}
-	return shared.Response{
-		Success: true,
-		Message: "Cargos con datos obtenidos exitosamente",
-		Data:    cargos,
-	}
-}
-
-func (s *Server) handleListDepartamentos() shared.Response {
-	departamentos, err := s.crud.ListDepartamentos()
-	if err != nil {
-		return shared.Response{
-			Success: false,
-			Message: err.Error(),
-		}
-	}
-	return shared.Response{
-		Success: true,
-		Message: "Lista de departamentos obtenida",
-		Data:    departamentos,
 	}
 }
 

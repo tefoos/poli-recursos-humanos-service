@@ -8,10 +8,8 @@ import (
 )
 
 type CargoConDatosDTO struct {
-	ID        int    `json:"cargo_id"`
-	Nombre    string `json:"cargo_nombre"`
-	Direccion string `json:"direccion"`
-	Ciudad    string `json:"ciudad"`
+	ID     int    `json:"cargo_id"`
+	Nombre string `json:"cargo_nombre"`
 }
 
 type DepartamentoConDatosDTO struct {
@@ -38,27 +36,6 @@ func (c *Client) GetCargos() ([]shared.CargoDTO, error) {
 	err = json.Unmarshal(dataBytes, &cargos)
 	if err != nil {
 		return nil, fmt.Errorf("error procesando lista de cargos: %v", err)
-	}
-	return cargos, nil
-}
-
-func (c *Client) GetCargosConDatos() ([]CargoConDatosDTO, error) {
-	req := shared.Request{
-		Operation: "LIST_CARGOS_CON_DATOS",
-		Data:      nil,
-	}
-	response, err := c.SendRequest(req)
-	if err != nil {
-		return nil, err
-	}
-	if !response.Success {
-		return nil, fmt.Errorf(response.Message)
-	}
-	dataBytes, _ := json.Marshal(response.Data)
-	var cargos []CargoConDatosDTO
-	err = json.Unmarshal(dataBytes, &cargos)
-	if err != nil {
-		return nil, fmt.Errorf("error procesando lista de cargos con datos: %v", err)
 	}
 	return cargos, nil
 }
@@ -127,13 +104,13 @@ func (c *Client) GetGerentes() ([]shared.GerenteDTO, error) {
 }
 
 func (c *Client) SelectCargoFromList() (int, error) {
-	cargosConDatos, err := c.GetCargosConDatos()
+	cargosConDatos, err := c.GetCargos()
 	if err != nil {
 		return 0, fmt.Errorf("error obteniendo cargos: %v", err)
 	}
 	fmt.Println("\nCARGOS DISPONIBLES:")
 	for _, cargo := range cargosConDatos {
-		fmt.Printf("  %d. %s - %s - %s\n", cargo.ID, cargo.Nombre, cargo.Direccion, cargo.Ciudad)
+		fmt.Printf("  %d. %s \n", cargo.ID, cargo.Nombre)
 	}
 	for {
 		cargoID, err := c.ReadIntInput("\nSeleccione el ID del cargo: ")
