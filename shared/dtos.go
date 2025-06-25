@@ -48,16 +48,18 @@ type EmpleadoResponseDTO struct {
 }
 
 type EmpleadoDetailResponseDTO struct {
-	ID                 int     `json:"empl_id"`
-	PrimerNombre       string  `json:"empl_primer_nombre"`
-	SegundoNombre      *string `json:"empl_segundo_nombre"`
-	Email              string  `json:"empl_email"`
-	FechaNac           string  `json:"empl_fecha_nac"`
-	Sueldo             float64 `json:"empl_sueldo"`
-	Comision           float64 `json:"empl_comision"`
+	ID                 int     `json:"id"`
+	PrimerNombre       string  `json:"primer_nombre"`
+	SegundoNombre      *string `json:"segundo_nombre"`
+	Email              string  `json:"email"`
+	FechaNac           string  `json:"fecha_nac"`
+	Sueldo             float64 `json:"sueldo"`
+	Comision           float64 `json:"comision"`
 	CargoNombre        string  `json:"cargo_nombre"`
 	GerenteNombre      *string `json:"gerente_nombre"`
 	DepartamentoNombre string  `json:"departamento_nombre"`
+	Direccion          string  `json:"direccion"`
+	Ciudad             string  `json:"ciudad"`
 	IsDeleted          bool    `json:"is_deleted"`
 }
 
@@ -86,6 +88,8 @@ type CreateEmpleadoResponseDTO struct {
 	GerenteNombre      *string `json:"gerente_nombre"`
 	Sueldo             float64 `json:"empl_sueldo"`
 	Comision           float64 `json:"empl_comision"`
+	Direccion          string  `json:"direccion"`
+	Ciudad             string  `json:"ciudad"`
 }
 
 type UpdateEmpleadoResponseDTO struct {
@@ -98,15 +102,17 @@ type UpdateEmpleadoResponseDTO struct {
 	GerenteNombre      *string `json:"gerente_nombre"`
 	Sueldo             float64 `json:"empl_sueldo"`
 	Comision           float64 `json:"empl_comision"`
+	Direccion          string  `json:"direccion"`
+	Ciudad             string  `json:"ciudad"`
 }
 
 type Request struct {
-	Operation string      `json:"operation"`
-	Data      interface{} `json:"data"`
+	Operation string `json:"operation"`
+	Data      any    `json:"data"`
 }
 
 type Response struct {
-	Success bool        `json:"success"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data,omitempty"`
+	Success bool   `json:"success"`
+	Message string `json:"message"`
+	Data    any    `json:"data,omitempty"`
 }

@@ -64,20 +64,17 @@ func (c *Client) HandleInsert() {
 
 func (c *Client) HandleUpdate() {
 	fmt.Println("\n--- ACTUALIZAR EMPLEADO ---")
-
 	empleadoID, err := c.ReadIntInput("ID del empleado a actualizar: ")
 	if err != nil {
 		fmt.Printf("Error en ID: %v\n", err)
 		return
 	}
-
 	fmt.Println("Obteniendo datos actuales del empleado...")
 	currentData, err := c.GetEmpleadoActual(empleadoID)
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		return
 	}
-
 	fmt.Printf("\nDatos actuales del empleado:\n")
 	fmt.Printf("1. Primer nombre: %s\n", currentData.PrimerNombre)
 	if currentData.SegundoNombre != nil {
@@ -88,7 +85,7 @@ func (c *Client) HandleUpdate() {
 	fmt.Printf("3. Email: %s\n", currentData.Email)
 	fmt.Printf("4. Fecha nacimiento: %s\n", currentData.FechaNac)
 	fmt.Printf("5. Cargo: %s\n", currentData.CargoNombre)
-	fmt.Printf("6. Departamento: %s\n", currentData.DepartamentoNombre)
+	fmt.Printf("6. Departamento: %s - %s - %s\n", currentData.DepartamentoNombre, currentData.Direccion, currentData.Ciudad)
 	if currentData.GerenteNombre != nil {
 		fmt.Printf("7. Gerente: %s\n", *currentData.GerenteNombre)
 	} else {
@@ -96,14 +93,11 @@ func (c *Client) HandleUpdate() {
 	}
 	fmt.Printf("8. Sueldo: %.2f\n", currentData.Sueldo)
 	fmt.Printf("9. Comisión: %.2f\n", currentData.Comision)
-
 	campos := c.ReadInput("\n¿Qué campos desea actualizar? (ej: 1,3,5 o 'todo'): ")
-
 	if strings.ToLower(strings.TrimSpace(campos)) == "todo" {
 		c.UpdateAllFields(empleadoID)
 		return
 	}
-
 	c.UpdateSelectedFields(empleadoID, campos, currentData)
 }
 

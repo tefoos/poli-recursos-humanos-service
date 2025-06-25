@@ -22,7 +22,7 @@ func NewClient() *Client {
 }
 
 func (c *Client) Connect(host, port string) error {
-	address := fmt.Sprintf("%s:%s", host, port)
+	address := net.JoinHostPort(host, port)
 	conn, err := net.Dial("tcp", address)
 	if err != nil {
 		return fmt.Errorf("error conectando al servidor: %v", err)
